@@ -8,7 +8,12 @@
 "use strict"
 module.exports = (grunt) ->
 
+    grunt.verbose.ok "Installing the platforms hook"
+
     hooker = require 'hooker'
+
+    stringify = (object)->
+        return JSON.stringify object, null, "    "
 
     ###
     Receive a task name and if no target specified find active targets and execute the active ones.
@@ -25,14 +30,20 @@ module.exports = (grunt) ->
 
         activePlatforms = activeTargets()
         isGlobalBuild = task is "default"
+        isPlatformDependent = platformDependent task
+
+        grunt.verbose.ok "Active platforms: #{stringify activePlatforms}"
+        grunt.verbose.ok "Global build: #{isGlobalBuild}"
+        grunt.verbose.ok "Platform dependent: #{isPlatformDependent}"
 
         # If task isn't related to any platform, no preempting
-        if !isGlobalBuild && !isPlatformDependent task then return false
+        if !isGlobalBuild || !isPlatformDependent then return false
 
         # If a configuration exists for each active platform, preempts the default behavior by executing only
         # these ones
         for platform in activePlatforms
             if isGlobalBuild
+                grunt.verbose.ok "Running task: #{platform}"
                 # Executing all tasks for the current platforms
                 grunt.task.run platform
             else
@@ -41,6 +52,7 @@ module.exports = (grunt) ->
 
                 # If we found a configuration for that platform, we use it
                 # executing task with correct target
+                grunt.verbose.ok "Running task: #{task}:#{platform}"
                 if conf then grunt.task.run "#{task}:#{platform}"
 
         # Task is platform dependent so it is preempted
@@ -55,20 +67,17 @@ module.exports = (grunt) ->
 
         platforms = grunt.config "platforms"
 
+        grunt.verbose.debug "platforms in config: #{stringify platforms}"
+
         return [] if !platforms
 
-        result = (platform for platform of platforms when platforms[ platform ].active)
-
-        grunt.verbose.debug JSON.stringify result, null, "    "
-
-        return result
-
+        key for key, value of platforms when value?.active
 
 
     ###
     Return true if task's configuration is platform dependent.
     ###
-    isPlatformDependent = ( task ) ->
+    platformDependent = ( task ) ->
 
         platforms = grunt.config "platforms"
         taskConfiguration = grunt.config task
@@ -88,7 +97,7 @@ module.exports = (grunt) ->
     hooker.hook grunt.task, "run",
         pre: ( task ) ->
 
-            grunt.verbose.debug JSON.stringify task, null, "    "
+            grunt.verbose.ok "task: #{JSON.stringify task, null, '    '}"
 
             # If an alias task, nothing to do
             return if task instanceof Array and task.length
@@ -99,6 +108,9 @@ module.exports = (grunt) ->
 
             # If task is platform dependent and has active targets : preempt
             if executeTaskForActiveTargetsOnly task
+                grunt.verbose.ok "Intercepted call to grunt.task.run"
                 return hooker.preempt true
+
+    grunt.verbose.ok "Hook platforms installed"
 
     return

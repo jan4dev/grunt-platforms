@@ -11,26 +11,24 @@ module.exports = (grunt) ->
   # Project configuration.
   grunt.initConfig
 
-    hello: "hello"
-
     # Definition of available targets.
     platforms:
-        root: "build/"
-        android:
-            folder: "<%= platforms.root %>/android/"
-            active: false
-        ios:
-            folder: "<%= platforms.root %>/ios/"
-            active: false
-        web:
-            folder: "<%= platforms.root %>/web/"
-            active: false
+      root: "build/"
+      android:
+          folder: "<%= platforms.root %>/android/"
+          active: false
+      ios:
+          folder: "<%= platforms.root %>/ios/"
+          active: false
+      web:
+          folder: "<%= platforms.root %>/web/"
+          active: false
 
     # Before generating any new files, remove any previously-created files.
     clean:
       build: ["build/*/*"]
 
-    # Serve to test the plugin.
+    # Copy task configuration
     copy:
       android:
         src: "test/fixtures/android"
@@ -48,16 +46,17 @@ module.exports = (grunt) ->
         expand: true
         flatten: true
 
-
     # Unit tests.
     nodeunit:
       tests: ["test/*_test.coffee"]
 
-
   # These plugins provide necessary tasks.
   grunt.loadNpmTasks "grunt-contrib-clean"
-  grunt.loadNpmTasks "grunt-contrib-nodeunit"
   grunt.loadNpmTasks "grunt-contrib-copy"
+  grunt.loadNpmTasks "grunt-contrib-nodeunit"
+
+  # Actually load this plugin's task(s).
+  grunt.loadTasks "tasks"
 
   # Whenever the "test" task is run, first clean the "tmp" dir, then run this
   # plugin's task(s), then test the result.
