@@ -1,6 +1,12 @@
 "use strict"
 grunt = require("grunt")
 
+# Actually load this plugin's task(s).
+grunt.loadTasks "tasks"
+
+# Backup of the original config
+platforms = grunt.config 'platforms'
+
 #
 #  ======== A Handy Little Nodeunit Reference ========
 #  https://github.com/caolan/nodeunit
@@ -20,15 +26,41 @@ grunt = require("grunt")
 #    test.doesNotThrow(block, [error], [message])
 #    test.ifError(value)
 #
+
+fileExists = (filepath) ->
+  return grunt.file.exists grunt.util.normalizelf filepath
+
+stringify = (object)->
+  return JSON.stringify object, null, "    "
+
+
+###
+Tests
+###
 exports.platforms =
 
+  # Before each test
   setUp: (done) ->
-    # setup here if necessary
     done()
-    return
 
-  test: (test) ->
+  # After each test
+  tearDown: (done) ->
+    grunt.config 'platforms', platforms
+    done()
+
+  # Android only
+  android: (test) ->
+
     test.expect 1
-    test.equals true, true, "test"
+
+    grunt.config "platforms.android.active", true
+    console.log "platforms: #{stringify grunt.config 'platforms'}"
+
+    # grunt.task.run "copy"
+    # actual = fileExists 'build/android/android'
+    # test.equal actual, true, 'copy:android target should have been called'
+
     test.done()
-    return
+
+
+
