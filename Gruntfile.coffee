@@ -45,7 +45,7 @@ module.exports = (grunt) ->
                     flatten: true
 
      # Loads the plugin code
-     grunt.loadTasks("tasks")
+     grunt.loadTasks "tasks"
 
      # These plugins provide necessary tasks.
      grunt.loadNpmTasks "grunt-contrib-clean"
