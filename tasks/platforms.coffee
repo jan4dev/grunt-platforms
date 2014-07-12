@@ -32,9 +32,9 @@ module.exports = (grunt) ->
         isGlobalBuild = task is "default"
         isPlatformDependent = platformDependent task
 
-        grunt.verbose.ok "Active platforms: #{stringify activePlatforms}"
-        grunt.verbose.ok "Global build: #{isGlobalBuild}"
-        grunt.verbose.ok "Platform dependent: #{isPlatformDependent}"
+        grunt.verbose.debug "Active platforms: #{stringify activePlatforms}"
+        grunt.verbose.debug "Global build: #{isGlobalBuild}"
+        grunt.verbose.debug "Platform dependent: #{isPlatformDependent}"
 
         # If task isn't related to any platform, no preempting
         if !isGlobalBuild || !isPlatformDependent then return false
@@ -97,7 +97,7 @@ module.exports = (grunt) ->
     hooker.hook grunt.task, "run",
         pre: ( task ) ->
 
-            grunt.verbose.ok "task: #{JSON.stringify task, null, '    '}"
+            grunt.verbose.debug "task: #{JSON.stringify task, null, '    '}"
 
             # If an alias task, nothing to do
             return if task instanceof Array and task.length
@@ -112,5 +112,3 @@ module.exports = (grunt) ->
                 return hooker.preempt true
 
     grunt.verbose.ok "Hook platforms installed"
-
-    return
