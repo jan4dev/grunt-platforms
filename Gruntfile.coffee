@@ -33,22 +33,19 @@ module.exports = (grunt) ->
                     dest: "<%=platforms.android.folder%>"
                     expand: true
                     flatten: true
-
                ios:
                     src: "tests/fixtures/ios"
                     dest: "<%=platforms.ios.folder%>"
                     expand: true
                     flatten: true
-
                web:
                     src: "tests/fixtures/web"
                     dest: "<%=platforms.web.folder%>"
                     expand: true
                     flatten: true
 
-
-     # Actually load this plugin's task(s).
-     grunt.loadTasks "tasks"
+     # Loads the plugin code
+     grunt.loadTasks("tasks")
 
      # These plugins provide necessary tasks.
      grunt.loadNpmTasks "grunt-contrib-clean"
