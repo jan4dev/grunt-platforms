@@ -19,7 +19,7 @@ module.exports = (grunt) ->
                root: "build/"
                android:
                     folder: "<%= platforms.root %>/android/"
-                    active: false
+                    active: true
                ios:
                     folder: "<%= platforms.root %>/ios/"
                     active: false
