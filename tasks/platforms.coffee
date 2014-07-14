@@ -97,7 +97,7 @@ module.exports = (grunt) ->
     hooker.hook grunt.task, "run",
         pre: ( task ) ->
 
-            grunt.verbose.debug "task: #{JSON.stringify task, null, '    '}"
+            grunt.verbose.debug "task: #{stringify task}"
 
             # If an alias task, nothing to do
             return if task instanceof Array and task.length
