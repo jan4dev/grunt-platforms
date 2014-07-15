@@ -1,7 +1,7 @@
 # grunt-platforms
 
 > Allows selective build by defining a list of platforms.
-> The idea is to declare a list of targets common to several tasks with their current status in order to auto-detect the active one when executing a task.
+> The idea is to declare a list of targets common to several tasks with their current status in order to auto-detect the active one when executing a task. It can be helpful when working in hybrid environment with cordova for instance to execute platform related tasks. If you want to build for one platform only like android or ios.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -31,17 +31,17 @@ In your project's Gruntfile, add a section named `platforms` to the data object 
 ```js
 grunt.initConfig({
   platforms: {
-		android: {
-			active: false
-		},
-		ios: {
-			active: true
-		},
-		web: {
-			active: false
-		}
+	android: {
+		active: false
 	},
-	uglify:{
+	ios: {
+		active: true
+	},
+	web: {
+		active: false
+	}
+  },
+  uglify:{
     android:{
 	    // ...
     },
@@ -55,26 +55,12 @@ grunt.initConfig({
 });
 ```
 
-Typing `grunt uglify` will be equivalent to `grunt uglify:ios`.
+Typing `grunt uglify` will be equivalent to `grunt uglify:ios`, as iOS is the only platform available. 
 The hook will intercept `grunt uglify`, read the `platforms` configuration, and replace it with one call per active platform. 
 
 If you want to execute all targets independently of the platforms configuration, you can add `:` like this `grunt uglify:`.
 
 Of course, if you specified already a target, `grunt uglify:web` for instance, the hook is bypassed.
-
-### Options
-
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality.
