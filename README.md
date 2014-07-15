@@ -51,7 +51,7 @@ grunt.initConfig({
     web: {
 	    // ...
     }
-	}
+  }
 });
 ```
 
