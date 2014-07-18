@@ -66,4 +66,6 @@ Of course, if you specified already a target, `grunt uglify:web` for instance, t
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality.
 
 ## Release History
-_(Nothing yet)_
+Date       |Version |Résumé
+-----------|--------|--------------
+2014-07-15 | v1.0.0 | First release
