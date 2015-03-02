@@ -1,22 +1,22 @@
 {
 	"name": "grunt-platforms",
 	"description": "Allows selective build by defining a list of platforms",
-	"version": "1.0.0",
-	"homepage": "https://github.com/J2AN/grunt-platforms",
+	"version": "1.0.1",
+	"homepage": "https://github.com/jdat82/grunt-platforms",
 	"author": {
-		"name": "jan4dev",
+		"name": "jdat82",
 		"email": "jan4dev@gmail.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:jan4dev/grunt-platforms.git"
+		"url": "git@github.com:jdat82/grunt-platforms.git"
 	},
 	"bugs": {
-		"url": "https://github.com/jan4dev/grunt-platforms/issues"
+		"url": "https://github.com/jdat82/grunt-platforms/issues"
 	},
 	"licenses": [{
 		"type": "MIT",
-		"url": "https://github.com/jan4dev/grunt-platforms/blob/master/LICENSE-MIT"
+		"url": "https://github.com/jdat82/grunt-platforms/blob/master/LICENSE-MIT"
 	}],
 	"engines": {
 		"node": ">= 0.10.0"

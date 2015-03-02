@@ -68,4 +68,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
 Date       |Version |Résumé
 -----------|--------|--------------
+2015-03-02 | v1.0.1 | Updated git urls.
 2014-07-15 | v1.0.0 | First release
